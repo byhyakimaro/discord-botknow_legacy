@@ -1,12 +1,12 @@
 {
-    "token": "NzU2NDUxOTUxOTQ4MDcwOTQ0.X2SCxw.Tq8MwSBU8djoXwjLcBY3fdIZ7rY",
+    "token": "",
     "debug": true,
     "prefix": "$",
-    "channel": "800515231687245835",
-    "guild": "746869301360984116",
+    "channel": "",
+    "guild": "",
 
-    "host": "localhost",
-    "user": "root",
+    "host": "",
+    "user": "",
     "password" : "",
-    "database" : "knowadmin"
+    "database" : ""
 }
