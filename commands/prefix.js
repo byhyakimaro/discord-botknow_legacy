@@ -14,13 +14,13 @@ module.exports = async (client, msg) => {msg.delete();
     let embed = new Discord.MessageEmbed()
     .setColor("#000000")
     .setTitle(`${emoji} **Novo Prefixo Adicionado!**`)
-    .setDescription(`\`\`\`O Prefixo do Servidor foi alterado para ${args[1]}\`\`\``)
+    .setDescription(`\`\`\`Prefixo foi alterado para ${args[1]}\`\`\``)
     .setThumbnail(msg.guild.iconURL())
     .setFooter("Sistema de mensagem exclusivo KnowNetwork's")
     .setTimestamp();
 
-    var sql = "INSERT INTO `prefixs` (guild_id, prefix, data_registro) VALUES ("+msg.guild.id+", '"+args[1]+"', '"+time+"') ON DUPLICATE KEY UPDATE prefix='"+args[1]+"', data_registro='"+time+"';";
-    db.mysql.query(sql, async function (err, result) {
+    var sql = "INSERT INTO `prefixs` (guild_id, prefix, data_registro) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE prefix=? ,data_registro=?;";
+    db.mysql.query(sql,[msg.guild.id, args[1], time, args[1], time] , async function (err, result) {
     	if (err) return console.log(err);
       	if(config.debug) console.log(`prefixo ${args[1]}`);
     	msg.reply(embed);
