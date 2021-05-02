@@ -1,10 +1,10 @@
 {
-    "__#config bot__",
+    "__#config bot__"
     "token": "",
     "debug": true,
     "prefix": "$",
     
-    "__#server to manage the bot__",
+    "__#server to manage the bot__"
     "channel": "",
     "guild": "",
 
