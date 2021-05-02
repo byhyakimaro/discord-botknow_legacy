@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const config = require("../config.json");
 
 module.exports = async (client,msg) =>{msg.delete();
+    if(!msg.member.permissions.has("ADMINISTRATOR")) return msg.channel.send("**Acess Denied. :lock:**").then(msg => msg.delete({timeout: 5000}))
     let emoji = await msg.guild.emojis.cache.find(emoji => emoji.name === "fix");
     const args = msg.content.split(" ");
     let emojiReact = '📩';
