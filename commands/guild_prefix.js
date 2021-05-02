@@ -10,7 +10,7 @@ module.exports = async (client, msg) => {msg.delete();
     db.mysql.query("SELECT guild_id,prefix FROM prefixs WHERE guild_id= ?", [parseFloat(args[1])], async function (err, result) {
     	if (err) return console.log(err);
         if (result == "") return msg.reply('Servidor não encontrado.')
-            .then(msg => msg.delete({timeout: 4000}).catch(() => null));
+            .then((m) => { m.delete({timeout: 4000}).catch(() => null)} );
         const prefix = JSON.parse(JSON.stringify(result[0].prefix));
         let emoji = await msg.guild.emojis.cache.find(emoji => emoji.name === "fix");
         let embed = new Discord.MessageEmbed()
