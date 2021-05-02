@@ -36,7 +36,7 @@ client.on("message", async (msg)=>{
           if(commands[args[0]]) commands[args[0]](client,msg);
           else if(args[0].split("")[0] == prefix) unknowCommand(client,msg);
     	}
-  	});
+    });
 });
 
 const tickets = {};
@@ -47,7 +47,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
     if (user.bot) return;
     if (!reaction.message.guild) return;
     if (reaction.message.channel.id !== config.channel) return;
-	if (reaction.emoji.name === emojiReact) {
+       if (reaction.emoji.name === emojiReact) {
        if (chTicket) return reaction.message.reply(`You already have a ticket open.`)
           .then((m) => {reaction.users.remove(user.id); m.delete({timeout: 4000}).catch(() => null)});
        await reaction.message.guild.channels.create(`📌ticket-${user.username}`, {
@@ -76,12 +76,12 @@ client.on('messageReactionAdd', async (reaction, user) => {
                if (reaction.message.channel.id === channel.id) {
                   await channel.delete();
                   delete tickets[user.id];
-			   };
-			});
-		 });
-	  });
-   await reaction.users.remove(user.id).catch(console.error);
-   };
+		};
+	     });
+	 });
+     });
+    await reaction.users.remove(user.id).catch(console.error);
+    };
 });
 
 client.on("guildMemberAdd", async (member) => { 
