@@ -21,8 +21,8 @@ client.on("ready",()=>{
 
 client.on("message", async (msg)=>{
     //create prefix if not exist
-    var sql = "INSERT INTO `prefixs` (guild_id, prefix, data_registro) VALUES ("+msg.guild.id+", '"+config.prefix+"', null) ON DUPLICATE KEY UPDATE guild_id="+msg.guild.id+";";
-    db.mysql.query(sql, async function (err, result) { if (err) return console.log(err) })
+    var sql = "INSERT INTO `prefixs` (guild_id, prefix, data_registro) VALUES (? , ?, null) ON DUPLICATE KEY UPDATE guild_id=?;";
+    db.mysql.query(sql, [msg.guild.id, config.prefix, msg.guild.id], async function (err, result) { if (err) return console.log(err) });
     //select prefix
     db.mysql.query("SELECT guild_id,prefix FROM prefixs WHERE guild_id= ?", [msg.guild.id], async function (err, result) {
     	if (err) return console.log(err);
@@ -76,9 +76,9 @@ client.on('messageReactionAdd', async (reaction, user) => {
                if (reaction.message.channel.id === channel.id) {
                   await channel.delete();
                   delete tickets[user.id];
-		};
-	     });
-	 });
+				};
+	     	});
+	 	});
      });
     await reaction.users.remove(user.id).catch(console.error);
     };
