@@ -1,10 +1,14 @@
 {
+    #config bot
     "token": "",
     "debug": true,
     "prefix": "$",
+    
+    #server to manage the bot
     "channel": "",
     "guild": "",
 
+    #database
     "host": "",
     "user": "",
     "password" : "",
