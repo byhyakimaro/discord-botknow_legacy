@@ -46,45 +46,42 @@ client.on('messageReactionAdd', async (reaction, user) => {
     let emojiReact = '📩';
     if (user.bot) return;
     if (!reaction.message.guild) return;
-    if (reaction.message.guild.id !== config.guild) return;
-    if (reaction.message.channel.id === config.channel) {
-    	if (reaction.emoji.name === emojiReact) {
-            if (chTicket) return reaction.message.reply(`You already have a ticket open.`)
-            	.then((m) => {reaction.users.remove(user.id); m.delete({timeout: 4000}).catch(() => null)});
-        	await reaction.message.guild.channels.create(`📌ticket-${user.username}`, {
-            	type: 'text',
-                parent: reaction.message.channel.parent,
-                permissionOverwrites: [
-                	{
-                      id: user.id,
-                      allow: ["VIEW_CHANNEL", "SEND_MESSAGES", "READ_MESSAGE_HISTORY"],
-                    },
-                  ],
-                }).then(async channel => {
-                	tickets[user.id] = channel
-                    let emojiClosed = '🔒';
-                    let embed1 = await new Discord.MessageEmbed()
-                    .setColor("#66ff99")
-                    .setTitle(`${emoji} Você abriu um ticket, espere um moderador entrar em contato`)
-                    .setDescription(`${user} To closed ticket react with ${emojiClosed}`)
-                    .setFooter("Sistema de mensagem exclusivo KnowNetwork's")
+    if (reaction.message.channel.id !== config.channel) return;
+	if (reaction.emoji.name === emojiReact) {
+       if (chTicket) return reaction.message.reply(`You already have a ticket open.`)
+          .then((m) => {reaction.users.remove(user.id); m.delete({timeout: 4000}).catch(() => null)});
+       await reaction.message.guild.channels.create(`📌ticket-${user.username}`, {
+          type: 'text',
+          parent: reaction.message.channel.parent,
+          permissionOverwrites: [
+            {
+              id: user.id,
+               allow: ["VIEW_CHANNEL", "SEND_MESSAGES", "READ_MESSAGE_HISTORY"],
+            },
+          ],
+          }).then(async channel => {
+             tickets[user.id] = channel
+             let emojiClosed = '🔒';
+             let embed1 = await new Discord.MessageEmbed()
+             .setColor("#66ff99")
+             .setTitle(`${emoji} Você abriu um ticket, espere um moderador entrar em contato`)
+             .setDescription(`${user} To closed ticket react with ${emojiClosed}`)
+             .setFooter("Sistema de mensagem exclusivo KnowNetwork's")
 
-                    await channel.send(embed1).then((m) => {
-                        m.react(emojiClosed);
-                        client.on('messageReactionAdd', async (reaction, user) => {
-                           if (user.bot) return;
-                           if (!reaction.message.guild) return;
-                           if (reaction.message.guild.id !== config.guild) return;
-                           if (reaction.message.channel.id === channel.id) {
-                               await channel.delete();
-                               delete tickets[user.id];
-						};
-					});
-				});
+             await channel.send(embed1).then((m) => {
+               m.react(emojiClosed);
+               client.on('messageReactionAdd', async (reaction, user) => {
+               if (user.bot) return;
+               if (!reaction.message.guild) return;
+               if (reaction.message.channel.id === channel.id) {
+                  await channel.delete();
+                  delete tickets[user.id];
+			   };
 			});
-            await reaction.users.remove(user.id).catch(console.error);
-		};
-	};
+		 });
+	  });
+   await reaction.users.remove(user.id).catch(console.error);
+   };
 });
 
 client.on("guildMemberAdd", async (member) => { 
