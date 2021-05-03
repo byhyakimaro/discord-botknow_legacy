@@ -16,6 +16,8 @@ module.exports = {
         .setDescription(`
         × 
         ${emoteRight} **${prefix}prefix <prefixo>** \n_\`Altera o prefixo do bot.\`_\n
+		${emoteRight} **${prefix}play or ${prefix}p <song>** \n_\`Toca um video do youtube.\`_\n
+		${emoteRight} **${prefix}stop or ${prefix}s** \n_\`para a musica do bot.\`_\n
         ${emoteRight} **${prefix}ticket** \n_\`Cria um ticket\`_\n
         ${emoteRight} **${prefix}clear** \n_\`Limpar Todo o Chat\`_\n
         ${emoteRight} **${prefix}ping** \n_\`Informaçoes de Latencia do Bot.\`_\n
