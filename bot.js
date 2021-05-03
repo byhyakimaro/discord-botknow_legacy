@@ -46,7 +46,7 @@ client.on("message", async (msg)=>{
           const args = msg.content.slice(prefix.length).split(/ +/g);
     	  const cmd = args.shift().toLowerCase();
           const command = commands.find(({ name, aliases }) => (name === cmd || (aliases && aliases.includes(cmd)) ));
-          if(!cmd) return;
+          if(!cmd || cmd !== prefix) return;
           if(command) command.run(client,msg,args);
           else if(msg.content.startsWith(prefix)) unknowCommand(client,msg);
     	}
