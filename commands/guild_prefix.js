@@ -15,9 +15,9 @@ module.exports = async (client, msg) => {msg.delete();
         let emoji = await msg.guild.emojis.cache.find(emoji => emoji.name === "fix");
         let embed = new Discord.MessageEmbed()
           .setColor("#000000")
-          .setTitle(`${emoji} **Prefixo ${msg.guild.name}!**`)
-          .setDescription(`\`\`\`o prefixo de ${msg.guild.name} é ${prefix}\`\`\``)
-          .setThumbnail(msg.guild.iconURL())
+          .setTitle(`${emoji} **Prefixo ${client.guilds.cache.get(args[1]).name}!**`)
+          .setDescription(`\`\`\`o prefixo de ${client.guilds.cache.get(args[1]).name} é ${prefix}\`\`\``)
+          .setThumbnail(client.guilds.cache.get(args[1]).iconURL())
           .setFooter("Sistema de mensagem exclusivo KnowNetwork's")
           .setTimestamp();
         msg.reply(embed);
