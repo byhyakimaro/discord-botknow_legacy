@@ -23,7 +23,7 @@ module.exports = {
             const dispatcher = connection.play(song);
             dispatcher.on('finish', () => {
                 queue.splice(song);
-                msg.reply('cabou');
+                msg.channel.send('Leaving the voice channel because I think there are no songs in the queue.');
                 voiceChannel.leave();
             });
         });
