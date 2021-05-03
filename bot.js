@@ -19,10 +19,21 @@ client.on("ready",()=>{
     client.user.setActivity(`Hacked You!`);
 });
 
+//joined a server
+client.on("guildCreate", guild => {
+    var sql = "INSERT INTO `prefixs` VALUES ( ?, ?, null);";
+    db.mysql.query(sql, [guild.id, config.prefix], async function (err, result) { if (err) return console.log(err) });
+    if(config.debug) console.log(`Joined a new guild: ${guild.name}`);
+});
+
+//removed from a server
+client.on("guildDelete", guild => {
+    var sql = "DELETE FROM `prefixs` WHERE guild_id = ?;";
+    db.mysql.query(sql, [guild.id], async function (err, result) { if (err) return console.log(err) });
+    if(config.debug) console.log(`Left a guild: ${guild.name}`);
+})
+
 client.on("message", async (msg)=>{
-    //create prefix if not exist
-    var sql = "INSERT INTO `prefixs` (guild_id, prefix, data_registro) VALUES (? , ?, null) ON DUPLICATE KEY UPDATE guild_id=?;";
-    db.mysql.query(sql, [msg.guild.id, config.prefix, msg.guild.id], async function (err, result) { if (err) return console.log(err) });
     //select prefix
     db.mysql.query("SELECT guild_id,prefix FROM prefixs WHERE guild_id= ?", [msg.guild.id], async function (err, result) {
     	if (err) return console.log(err);
