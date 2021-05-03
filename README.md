@@ -1,6 +1,6 @@
 # discord-bot KnowNetworks
 
-## insira as informaçoes do bot no config.json
+ insira as informaçoes do bot no config.json
 
 ## permissoes do bot
 * BAN_MEMBERS
