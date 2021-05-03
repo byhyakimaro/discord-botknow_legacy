@@ -2,7 +2,7 @@
 
 coloque as informaçoes do bot no config.json
 
-# permissoes do bot
+## permissoes do bot
 BAN_MEMBERS
 MANAGE_CHANNELS
 ADD_REACTIONS
