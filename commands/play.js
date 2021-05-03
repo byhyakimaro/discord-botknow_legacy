@@ -26,11 +26,11 @@ module.exports = {
             const embedPlaying = new Discord.MessageEmbed()
                 .setColor('#2f3136')
             	.setAuthor('Playing Music', 'https://c.tenor.com/HJvqN2i4Zs4AAAAj/milk-and-mocha-cute.gif')
-            	.setThumbnail(found.thumbnail)
+            	.setThumbnail(found.image)
              	.addFields( 
-                    { name: 'Name', value: `Playing ${found.title}`, inline: true }, 
-                    { name: 'Duration', value: `${found.timestamp}`, inline: true },
-                    { name: 'Request by', value: `${msg.author.tag}`, inline: true },
+                    { name: 'Name', value: found.title, inline: false },
+                    { name: 'Duration', value: found.timestamp, inline: true },
+                    { name: 'Request by', value: msg.author.tag, inline: true },
                 )
             if(connection) msg.reply(embedPlaying);
             dispatcher.on('finish', () => {
