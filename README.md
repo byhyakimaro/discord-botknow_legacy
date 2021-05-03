@@ -25,3 +25,4 @@
 - [x] Customizar ticket
 - [x] Customizar Prefixo 
 - [ ] Transmitir Audio
+- [ ] Recapta
