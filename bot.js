@@ -43,10 +43,11 @@ client.on("message", async (msg)=>{
         //check mensage
         if(!msg.author.bot && msg.guild){
           if(config.debug) console.log(`${msg.author.username}: ${msg.content}`);
+          if(!msg.content.startsWith(prefix)) return;
           const args = msg.content.slice(prefix.length).split(/ +/g);
     	  const cmd = args.shift().toLowerCase();
           const command = commands.find(({ name, aliases }) => (name === cmd || (aliases && aliases.includes(cmd)) ));
-          if(!cmd || cmd !== prefix) return;
+          if(!cmd) return;
           if(command) command.run(client,msg,args);
           else if(msg.content.startsWith(prefix)) unknowCommand(client,msg);
     	}
