@@ -20,9 +20,9 @@ module.exports = {
         searchSong(songName).then(async(found) => {
             const song = ytdl(found.url);
             if(!song) return msg.reply('song not found!');
+            queue.push(song);
             const connection = await voiceChannel.join();
             const dispatcher = connection.play(song);
-            queue.push(song);
             const embedPlaying = new Discord.MessageEmbed()
                 .setColor('#2f3136')
             	.setAuthor('Playing Music', 'https://c.tenor.com/HJvqN2i4Zs4AAAAj/milk-and-mocha-cute.gif')
