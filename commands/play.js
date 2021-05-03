@@ -12,20 +12,19 @@ module.exports = {
         async function searchSong(title) {
             const { videos } = await ytSearch(title);
             const found = videos[0];
-            if(!found) return;
             return found;
         };
         const voiceChannel = msg.member.voice.channel;
         if(!voiceChannel) return msg.reply('join voice channel to play music!');
         searchSong(songName).then(async(found) => {
+            if(!found) return msg.reply('song not found in youtube!');
             const song = ytdl(found.url);
-            if(!song) return msg.reply('song not found!');
             queue.push(song);
             const connection = await voiceChannel.join();
             const dispatcher = connection.play(song);
             const embedPlaying = new Discord.MessageEmbed()
                 .setColor('#2f3136')
-            	.setAuthor('Playing Music', 'https://c.tenor.com/HJvqN2i4Zs4AAAAj/milk-and-mocha-cute.gif')
+            	.setAuthor('Playing Music', 'https://cdn.discordapp.com/emojis/707524750640939009.gif')
             	.setThumbnail(found.image)
              	.addFields( 
                     { name: 'Name', value: found.title, inline: false },
@@ -34,8 +33,11 @@ module.exports = {
                 )
             if(connection) msg.reply(embedPlaying);
             dispatcher.on('finish', () => {
+                const embedEnd = new Discord.MessageEmbed()
+                	.setDescription('Leaving the voice channel because there are no songs in the queue.')
+                	.setFooter('Sistema De Mensagens KnowNetworks', msg.author.bot)
+                msg.reply(embedEnd);
                 queue.splice(song);
-                msg.channel.send('Leaving the voice channel because I think there are no songs in the queue.');
                 voiceChannel.leave();
             });
         });
