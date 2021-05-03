@@ -18,3 +18,9 @@ coloque as informaçoes do bot no config.json
 * CONNECT
 * SPEAK
 * MANAGE_ROLES
+
+### Features
+
+- [x] Abrir ticket
+- [x] Customizar ticket
+- [ ] Transmitir Audio
