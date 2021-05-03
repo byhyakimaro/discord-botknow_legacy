@@ -1,4 +1,4 @@
-# Bot Discord KnowNetworks
+# Discord JS KnowNetworks
 
  insira as informaçoes do bot no config.json
 
