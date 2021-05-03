@@ -7,20 +7,22 @@ module.exports = {
     run: async (client, msg, args) => {
         const songName = args.join(' ');
         const queue = [];
-        if(!songName) return msg.reply('Escreva');
+        if(!songName) return msg.reply('write the name of the song or the url');
         async function searchSong(title) {
             const { videos } = await ytSearch(title);
             const found = videos[0];
             if(!found) return;
-            return ytdl(found.url);
+            return found;
         };
         const voiceChannel = msg.member.voice.channel;
-        if(!voiceChannel) return msg.reply('seu sapo');
-        searchSong(songName).then(async(song) => {
+        if(!voiceChannel) return msg.reply('join voice channel to play music!');
+        searchSong(songName).then(async(found) => {
+            const song = ytdl(found.url);
             queue.push(song);
-            if(!song) return msg.reply('seu sapo');
+            if(!song) return msg.reply('song not found!');
             const connection = await voiceChannel.join();
             const dispatcher = connection.play(song);
+            if(connection) msg.reply(`Playing ${found.title}`);
             dispatcher.on('finish', () => {
                 queue.splice(song);
                 msg.channel.send('Leaving the voice channel because I think there are no songs in the queue.');
