@@ -43,9 +43,10 @@ client.on("message", async (msg)=>{
         //check mensage
         if(!msg.author.bot && msg.guild){
           if(config.debug) console.log(`${msg.author.username}: ${msg.content}`);
-          const args = msg.content.split(" ");
-          if(commands[args[0]]) commands[args[0]](client,msg);
-          else if(args[0].split("")[0] == prefix) unknowCommand(client,msg);
+          const args = msg.content.slice(prefix.length).split(/ +/g);
+    	  const cmd = args.shift().toLowerCase();
+          if(commands[prefix+cmd]) commands[prefix+cmd](client,msg,args);
+          else if(msg.content.startsWith(prefix)) unknowCommand(client,msg);
     	}
     });
 });
