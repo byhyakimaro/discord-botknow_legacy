@@ -1,3 +1,4 @@
+const Discord = require("discord.js");
 const ytSearch = require( 'yt-search');
 const ytdl = require('ytdl-core');
 
@@ -22,7 +23,12 @@ module.exports = {
             if(!song) return msg.reply('song not found!');
             const connection = await voiceChannel.join();
             const dispatcher = connection.play(song);
-            if(connection) msg.reply(`Playing ${found.title}`);
+            const embed = new Discord.MessageEmbed()
+            	.setAuthor('Playing Music')
+            	.setColor('#36393F')
+            	.setThumbnail(found.thumbnail)
+             	.addFields( { name: 'Name', value: `Playing ${found.title}` } )
+            if(connection) msg.reply(embed);
             dispatcher.on('finish', () => {
                 queue.splice(song);
                 msg.channel.send('Leaving the voice channel because I think there are no songs in the queue.');
