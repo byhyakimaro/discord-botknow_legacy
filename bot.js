@@ -45,7 +45,8 @@ client.on("message", async (msg)=>{
           if(config.debug) console.log(`${msg.author.username}: ${msg.content}`);
           const args = msg.content.slice(prefix.length).split(/ +/g);
     	  const cmd = args.shift().toLowerCase();
-          if(commands[prefix+cmd]) commands[prefix+cmd](client,msg,args);
+          const command = commands.find(({ name, aliases }) => (name === cmd || (aliases && aliases.includes(cmd)) ));
+          if(command) command.run(client,msg,args);
           else if(msg.content.startsWith(prefix)) unknowCommand(client,msg);
     	}
     });
