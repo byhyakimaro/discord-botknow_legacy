@@ -96,25 +96,17 @@ client.on('messageReactionAdd', async (reaction, user) => {
 });
 
 client.on("guildMemberAdd", async (member) => { 
-
-    let guild = await client.guilds.cache.get(config.guild);
-    let channel = await client.channels.cache.get(config.channel);
     let emotePhone = await client.emojis.cache.get("755967511706468452");
-    if (guild != member.guild) {
-      return console.log("Acess Denied.");
-     } else {
-        let embed = await new Discord.MessageEmbed()
-        .setColor("#000000")
-        .setAuthor(member.user.tag, member.user.displayAvatarURL())
-        .setTitle(`${emotePhone} Novo Membro.`)
-        //.setImage("https://cdn.discordapp.com/attachments/749020899658825758/749032698030456852/background.gif")
-        .setDescription(`${member.user} ***Entrou no servidor Deseja Mesmo ele aqui?***\ \n||@everyone||`)
-        .setThumbnail(member.user.displayAvatarURL({ dynamic: true, format: "png", size: 1024 }))
-        .setFooter("Sistema de mensagem exclusivo Black's Hats")
-        .setTimestamp();
-  
-      channel.send(embed);
-    }
-  })
+    let embed = await new Discord.MessageEmbed()
+      .setColor("#000000")
+      .setAuthor(member.user.tag, member.user.displayAvatarURL())
+      .setTitle(`${emotePhone} Novo Membro.`)
+      //.setImage("https://cdn.discordapp.com/attachments/749020899658825758/749032698030456852/background.gif")
+      .setDescription(`${member.user} ***Entrou no servidor!***`)
+      .setThumbnail(member.user.displayAvatarURL({ dynamic: true, format: "png", size: 1024 }))
+      .setFooter("Sistema de mensagem exclusivo Black's Hats")
+      .setTimestamp();
+    member.guild.systemChannel.send(embed);
+});
 
 client.login(config.token);
