@@ -23,11 +23,10 @@ module.exports = async (client, msg, args) => {
   }
   membro.ban();
 
-  let emoji = await msg.guild.emojis.cache.find(emoji => emoji.name === "verified");
-
+  let emoteVerified = await client.emojis.cache.get("755967479959912448");
   let embed = await new Discord.MessageEmbed()
   .setColor("#000000")
-  .setTitle(`${emoji} **${membro} Banido**`)
+  .setTitle(`${emoteVerified} **${membro} Banido**`)
   .setAuthor(membro.user.tag, membro.user.displayAvatarURL())
   .setDescription(`_\`este e um servidor privado por tanto seu acesso foi bloqueado.\`_`)
   .setThumbnail(membro.user.displayAvatarURL({ dynamic: true, format: "png", size: 1024 }))

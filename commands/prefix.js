@@ -10,10 +10,10 @@ module.exports = async (client, msg) => {msg.delete();
     var date = new Date();
     var time = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
-    let emoji = await msg.guild.emojis.cache.find(emoji => emoji.name === "fix");
+    let emoteFix = await client.emojis.cache.get("755967379363856455");
     let embed = new Discord.MessageEmbed()
     .setColor("#000000")
-    .setTitle(`${emoji} **Novo Prefixo Adicionado!**`)
+    .setTitle(`${emoteFix} **Novo Prefixo Adicionado!**`)
     .setDescription(`\`\`\`Prefixo foi alterado para ${args[1]}\`\`\``)
     .setThumbnail(msg.guild.iconURL())
     .setFooter("Sistema de mensagem exclusivo KnowNetwork's")

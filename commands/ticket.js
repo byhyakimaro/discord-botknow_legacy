@@ -3,7 +3,7 @@ const config = require("../config.json");
 
 module.exports = async (client,msg) =>{msg.delete();
     if(!msg.member.permissions.has("ADMINISTRATOR")) return msg.channel.send("**Acess Denied. :lock:**").then(msg => msg.delete({timeout: 5000}))
-    let emoji = await msg.guild.emojis.cache.find(emoji => emoji.name === "fix");
+    let emoteFix = await client.emojis.cache.get("755967379363856455");
     const args = msg.content.split(" ");
     let emojiReact = '📩';
 	if (msg.channel.id !== config.channel) return msg.reply('set your channel for tickets')
@@ -35,7 +35,7 @@ module.exports = async (client,msg) =>{msg.delete();
        await msg.channel.bulkDelete(4, true).catch(()=>null);
        let embed = await new Discord.MessageEmbed()
           .setColor("#66ff99")
-          .setTitle(`${emoji} **${answers[0]}**`)
+          .setTitle(`${emoteFix} **${answers[0]}**`)
           .setDescription(`${answers[1]} ${emojiReact}`)
           .setFooter("Sistema de mensagem exclusivo KnowNetwork's")
        await msg.reply(embed).then((m) => {
