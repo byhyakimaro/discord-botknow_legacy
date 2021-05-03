@@ -1,4 +1,4 @@
-# discord-botknow
+# discord-bot KnowNetworks
 
 ## insira as informaçoes do bot no config.json
 
