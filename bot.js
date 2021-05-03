@@ -41,7 +41,7 @@ client.on("message", async (msg)=>{
 
 const tickets = {};
 client.on('messageReactionAdd', async (reaction, user) => {
-    const emoji = await reaction.message.guild.emojis.cache.find(emoji => emoji.name === "fix");
+    let emoteFix = await client.emojis.cache.get("755967379363856455");
     const chTicket = tickets[user.id];
     let emojiReact = '📩';
     if (user.bot) return;
@@ -64,7 +64,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
              let emojiClosed = '🔒';
              let embed1 = await new Discord.MessageEmbed()
              .setColor("#66ff99")
-             .setTitle(`${emoji} Você abriu um ticket, espere um moderador entrar em contato`)
+             .setTitle(`${emoteFix} Você abriu um ticket, espere um moderador entrar em contato`)
              .setDescription(`${user} To closed ticket react with ${emojiClosed}`)
              .setFooter("Sistema de mensagem exclusivo KnowNetwork's")
 
@@ -88,14 +88,14 @@ client.on("guildMemberAdd", async (member) => {
 
     let guild = await client.guilds.cache.get(config.guild);
     let channel = await client.channels.cache.get(config.channel);
-    let emoji = await member.guild.emojis.cache.find(emoji => emoji.name === "phone");
+    let emotePhone = await client.emojis.cache.get("755967511706468452");
     if (guild != member.guild) {
       return console.log("Acess Denied.");
      } else {
         let embed = await new Discord.MessageEmbed()
         .setColor("#000000")
         .setAuthor(member.user.tag, member.user.displayAvatarURL())
-        .setTitle(`${emoji} Novo Membro.`)
+        .setTitle(`${emotePhone} Novo Membro.`)
         //.setImage("https://cdn.discordapp.com/attachments/749020899658825758/749032698030456852/background.gif")
         .setDescription(`${member.user} ***Entrou no servidor Deseja Mesmo ele aqui?***\ \n||@everyone||`)
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true, format: "png", size: 1024 }))
