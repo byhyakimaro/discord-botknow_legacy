@@ -3,9 +3,9 @@
 coloque as informaçoes do bot no config.json
 
 ## permissoes do bot
-BAN_MEMBERS
-MANAGE_CHANNELS
-ADD_REACTIONS
+* BAN_MEMBERS
+* MANAGE_CHANNELS
+* ADD_REACTIONS
 VIEW_CHANNEL
 SEND_MESSAGES
 SEND_TTS_MESSAGES
