@@ -17,7 +17,7 @@ module.exports = async (client,msg) =>{msg.delete();
     const filter = (m) => { return m.author.id === msg.author.id };
     const collector = new Discord.MessageCollector(msg.channel, filter, {
        max: questions.length,
-       time: 10000 * questions.length,
+       time: 20000 * questions.length,
     });
     msg.channel.send(questions[counter++]);
     collector.on('collect', async (m) => {
@@ -36,7 +36,7 @@ module.exports = async (client,msg) =>{msg.delete();
        let embed = await new Discord.MessageEmbed()
           .setColor("#66ff99")
           .setTitle(`${emoteFix} **${answers[0]}**`)
-          .setDescription(`${answers[1]} ${emojiReact}`)
+          .setDescription(`${answers[1]}`)
           .setFooter("Sistema de mensagem exclusivo KnowNetwork's")
        await msg.reply(embed).then((m) => {
          m.react(emojiReact);
