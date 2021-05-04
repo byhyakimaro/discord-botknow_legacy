@@ -32,10 +32,10 @@ module.exports = {
           .setColor("#000000")
           .setTitle(`${emoteVerified} **${membro} Banido**`)
           .setAuthor(membro.user.tag, membro.user.displayAvatarURL())
-          .setDescription(`_\`este e um servidor privado por tanto seu acesso foi bloqueado.\`_`)
+          .setDescription(`_\`Membro Banido!.\`_`)
           .setThumbnail(membro.user.displayAvatarURL({ dynamic: true, format: "png", size: 1024 }))
           .setFooter("Sistema de mensagem exclusivo KnowNetworks")
           .setTimestamp();
-      msg.channel.send(embed).then(msg => msg.delete({timeout: 5000}).catch(() => null));
+      msg.channel.send(embed);
     }
 }
