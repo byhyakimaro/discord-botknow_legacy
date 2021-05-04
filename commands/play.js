@@ -18,7 +18,7 @@ module.exports = {
         if(!voiceChannel) return msg.reply('join voice channel to play music!');
         searchSong(songName).then(async(found) => {
             if(!found) return msg.reply('song not found in youtube!');
-            const song = ytdl(found.url, { highWaterMark: 1 << 25, filter: "audioonly" });
+            const song = ytdl(found.url, { highWaterMark: 1 << 25, filter: "audioonly", quality: "highestaudio" });
             const connection = await voiceChannel.join();
             const dispatcher = connection.play(song);
             const embedPlaying = new Discord.MessageEmbed()
