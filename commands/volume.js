@@ -5,6 +5,7 @@ const config = require("../config.json");
 module.exports = {
     name: "volume",
     aliases: ["vol"],
+    help: "Aumenta ou diminiu o volume.",
     run: async (client, msg) => {
         const args = msg.content.split(" ");
         const volume = Number(args[1]);
