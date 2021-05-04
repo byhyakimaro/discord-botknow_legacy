@@ -4,6 +4,7 @@ const config = require("../config.json");
 module.exports = {
     name: "ticket",
     aliases: [],
+    help: "Cria um ticket no canal.",
     run: async (client, msg, args) => {msg.delete();
         if(!msg.member.permissions.has("ADMINISTRATOR")) return msg.channel.send("**Acess Denied. :lock:**").then(msg => msg.delete({timeout: 5000}))
         let emoteFix = await client.emojis.cache.get("755967379363856455");
