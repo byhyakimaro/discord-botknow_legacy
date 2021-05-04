@@ -7,7 +7,6 @@ module.exports = {
     aliases: ["p"],
     run: async (client, msg, args) => {
         const songName = args.join(' ');
-        const queue = [];
         if(!songName) return msg.reply('write the name of the song or the url');
         async function searchSong(title) {
             const { videos } = await ytSearch(title);
@@ -19,7 +18,6 @@ module.exports = {
         searchSong(songName).then(async(found) => {
             if(!found) return msg.reply('song not found in youtube!');
             const song = ytdl(found.url);
-            queue.push(song);
             const connection = await voiceChannel.join();
             const dispatcher = connection.play(song);
             const embedPlaying = new Discord.MessageEmbed()
@@ -37,7 +35,6 @@ module.exports = {
                 	.setDescription('Leaving the voice channel because there are no songs in the queue.')
                 	.setFooter('Sistema De Mensagens KnowNetworks', msg.author.bot)
                 msg.reply(embedEnd);
-                queue.splice(song);
                 voiceChannel.leave();
             });
         });
