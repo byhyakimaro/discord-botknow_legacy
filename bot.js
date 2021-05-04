@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
+client.queues = new Map();
 
 const config = require("./config.json");
 const db = require('./scripts/db');
