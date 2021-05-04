@@ -9,6 +9,7 @@ module.exports = {
     run: async (client, msg) => {msg.delete();
         if(!msg.member.permissions.has("ADMINISTRATOR")) { return msg.channel.send("**Acess Denied. :lock:**").then(msg => msg.delete({timeout: 5000})) };           
         const args = msg.content.split(" ");
+        if (!args[1]) return msg.reply('Especifique um prefixo');
         var date = new Date();
         var time = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
         let emoteFix = await client.emojis.cache.get("755967379363856455");
