@@ -5,6 +5,7 @@
     "prefix": "$",
     
     "__#server to manage the bot__"
+    "user": "",
     "channel": "",
     "guild": "",
 
