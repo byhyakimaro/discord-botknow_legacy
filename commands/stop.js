@@ -10,7 +10,7 @@ module.exports = {
         const voiceChannel = msg.member.voice.channel;
         if (!voiceChannel) return msg.reply(`You must be in a voice channel to use this command.`).then((m)=>{ m.delete({timeout: 4000}).catch(() => null) });
         voiceChannel.leave();
-        return client.queues.delete(msg.member.guild.id)
+        client.queues.delete(msg.member.guild.id)
         msg.react('🛑');
     }
 };
