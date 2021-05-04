@@ -11,8 +11,8 @@ module.exports = {
         const voiceChannel = msg.member.voice.channel;
         let queue = client.queues.get(msg.member.guild.id);
         async function playSongs(found) {
-            const connection = await voiceChannel.join();
             if(!found) return msg.reply('song not found in youtube!');
+            const connection = await voiceChannel.join();
             if (!queue) {
                queue = {
                  volume: 100,
