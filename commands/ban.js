@@ -3,6 +3,7 @@ const Discord = require("discord.js")
 module.exports = {
     name: "ban",
     aliases: [],
+    help: "Ban permanente liberando apenas por id no servidor!",
     run: async (client, msg, args) => {
       msg.delete()
       if(!msg.member.permissions.has("BAN_MEMBERS")) {

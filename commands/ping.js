@@ -1,6 +1,7 @@
 module.exports = {
     name: "ping",
     aliases: [],
+    help: "Informaçoes de Latencia do Bot.",
     run: async (client, msg, args) => {
         msg.delete({timeout: 4000}).catch(() => null);
         const m = await msg.channel.send('ping?')

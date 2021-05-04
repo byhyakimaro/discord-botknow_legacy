@@ -5,6 +5,7 @@ const config = require("../config.json");
 module.exports = {
     name: "prefix",
     aliases: [],
+    help: "Altera o prefixo do bot.",
     run: async (client, msg) => {msg.delete();
         if(!msg.member.permissions.has("ADMINISTRATOR")) { return msg.channel.send("**Acess Denied. :lock:**").then(msg => msg.delete({timeout: 5000})) };           
         const args = msg.content.split(" ");

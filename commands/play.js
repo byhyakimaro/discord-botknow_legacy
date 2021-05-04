@@ -5,6 +5,7 @@ const ytdl = require('ytdl-core');
 module.exports = {
     name: "play",
     aliases: ["p"],
+    help: "Toca um video do youtube.",
     run: async (client, msg, args) => {
         const songName = args.join(' ');
         if(!songName) return msg.reply('write the name of the song or the url');
