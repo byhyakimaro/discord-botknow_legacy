@@ -53,6 +53,7 @@ module.exports = {
         if(!songName) return msg.reply('write the name of the song or the url');
         const { videos } = await ytSearch(songName);
         const found = videos[0];
+        if(!found) return msg.reply('song not found in youtube!');
         if (queue) {
             queue.songs.push(found);
             client.queues.set(msg.guild.id, queue);
