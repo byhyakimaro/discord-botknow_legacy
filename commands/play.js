@@ -56,6 +56,7 @@ module.exports = {
         if (queue) {
             queue.songs.push(found);
             client.queues.set(msg.guild.id, queue);
+            msg.reply(`Musica ${found.title} adicionada na playlist`);
         } else {
            playSongs(found);
         }
