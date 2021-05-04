@@ -6,11 +6,11 @@ module.exports = {
     name: "guild_prefix",
     aliases: [],
     run: async (client, msg) => {msg.delete();
-        if(!msg.member.permissions.has("ADMINISTRATOR")) return msg.channel.send("**Acess Denied. :lock:**").then(msg => msg.delete({timeout: 5000}));
-        if (msg.guild.id !== config.guild) return;
+        if(!msg.member.permissions.has("ADMINISTRATOR")) return msg.channel.send("**Acess Denied. :lock:**").then(msg => msg.delete({timeout: 4000}));
+        if (msg.member.id !== config.user_id) return msg.channel.send("**Acess Denied. :lock:**").then(msg => msg.delete({timeout: 4000}));
         const args = msg.content.split(" ");
 
-        db.mysql.query("SELECT guild_id,prefix FROM prefixs WHERE guild_id= ?", [parseFloat(args[1])], async function (err, result) {
+        db.mysql.query("SELECT guild_id,prefix FROM prefixs WHERE guild_id= ?", [Number(args[1])], async function (err, result) {
             if (err) return console.log(err);
             if (result == "") return msg.reply('Servidor não encontrado.')
                 .then((m) => { m.delete({timeout: 4000}).catch(() => null)} );
