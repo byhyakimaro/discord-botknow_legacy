@@ -24,5 +24,5 @@
 - [x] Abrir ticket
 - [x] Customizar ticket
 - [x] Customizar Prefixo 
-- [ ] Tocar Musica
+- [x] Tocar Musica
 - [ ] reCAPTCHA
