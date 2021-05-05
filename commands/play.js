@@ -50,9 +50,12 @@ module.exports = {
     help: "Toca um video do youtube.",
     playSongs,
     run: async (client, msg, args) => {
-        const songName = args.join(' ');
+        let songName = args.join(' ');
         let queue = client.queues.get(msg.member.guild.id);
         if(!songName) return msg.reply('write the name of the song or the url');
+        if(songName.includes('https://www.youtube.com')) {
+            songName = songName.split('v=')[1];
+        }
         const { videos } = await ytSearch(songName);
         const found = videos[0];
         if(!found) return msg.reply('song not found in youtube!');
