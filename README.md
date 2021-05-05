@@ -22,7 +22,6 @@
 ### Features
 
 - [x] Abrir ticket
-- [x] Customizar ticket
 - [x] Customizar Prefixo 
 - [x] Tocar Musica
 - [ ] reCAPTCHA
