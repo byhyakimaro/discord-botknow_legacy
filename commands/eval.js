@@ -9,7 +9,7 @@ module.exports = {
 		if(msg.author.id !== config.user_id) return;
         const evaled = async (command) => { return eval(command) };
        	evaled(command)
-            .then((res)=> msg.channel.send(res.slice(0 ,2000), {code: 'js'}))
+            .then((res)=> msg.channel.send(res, {code: 'js'}))
             .catch((err)=> msg.channel.send(err, {code: 'js'}));
     }
 };
