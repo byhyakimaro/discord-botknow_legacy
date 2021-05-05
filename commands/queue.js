@@ -1,6 +1,4 @@
 const Discord   = require("discord.js");
-const db = require('../scripts/db');
-const config = require("../config.json");
 
 module.exports = {
     name: "queue",
