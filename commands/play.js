@@ -18,6 +18,7 @@ const playSongs = async (client, msg, found) => {
     queue.dispatcher = await queue.connection.play(
     	await ytdl(found.url, { highWaterMark: 1 << 25, filter: "audioonly", quality: "highestaudio"})
     );
+    queue.dispatcher.setVolume(queue.volume/100);
     queue.dispatcher.on('finish', () => {
     	queue.songs.shift();
         if (!queue.songs[0]) {
