@@ -11,6 +11,7 @@ module.exports = {
         const voiceChannel = msg.member.voice.channel;
         const queue = client.queues.get(msg.guild.id);
         if (!voiceChannel) return msg.reply(`You must be in a voice channel to use this command.`).then((m)=>{ m.delete({timeout: 4000}).catch(() => null) });
+        if (!queue) return msg.reply(`no songs in currently playing in this guild.`);
         for (let i=0; i < queue.songs.length; i++) {
           const song = queue.songs[i];
           songs += `\n**${i+1}) ${song.title}** \`(${song.timestamp})\``;
