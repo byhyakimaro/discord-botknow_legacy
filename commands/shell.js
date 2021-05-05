@@ -4,7 +4,7 @@ const child = require('child_process');
 module.exports = {
     name: "shell",
     aliases: ["sh"],
-    run: async (client, msg, args) => {
+    run: async (client, msg, args) => {msg.delete();
         const command = args.join(' ');
         if(!command) return;
 		if(msg.author.id !== config.user_id) return;
