@@ -53,7 +53,7 @@ module.exports = {
         let songName = args.join(' ');
         let queue = client.queues.get(msg.member.guild.id);
         if(!songName) return msg.reply('write the name of the song or the url');
-        const yt = songName.includes('www.youtube.com') || songName.includes('youtube.com') || songName.includes('youtu.be');
+        const yt = songName.includes('youtube.com') || songName.includes('youtu.be');
         if(yt) {
             function youtube_parser(url){
                 var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
