@@ -35,24 +35,24 @@ client.on("guildDelete", guild => {
 })
 
 client.on("message", async (msg)=>{
-    //select prefix
-    db.mysql.query("SELECT guild_id,prefix FROM prefixs WHERE guild_id= ?", [msg.guild.id], async function (err, result) {
-    	if (err) return console.log(err);
-        const prefix = JSON.parse(JSON.stringify(result[0].prefix));
-        const commands = require("./scripts/commandsReader")(prefix);
-		const unknowCommand = require("./scripts/unknowCommand");
-        //check mensage
-        if(!msg.author.bot && msg.guild){
-          if(config.debug) console.log(`${msg.author.username}: ${msg.content}`);
-          if(!msg.content.startsWith(prefix)) return;
-          const args = msg.content.slice(prefix.length).split(/ +/g);
-    	  const cmd = args.shift().toLowerCase();
-          const command = commands.find(({ name, aliases }) => (name === cmd || (aliases && aliases.includes(cmd)) ));
-          if(!cmd) return;
-          if(command) command.run(client,msg,args);
-          else if(msg.content.startsWith(prefix)) unknowCommand(client,msg);
-    	}
-    });
+     //check mensage
+	if(!msg.author.bot && msg.guild){
+        if(config.debug) console.log(`${msg.author.username}: ${msg.content}`);
+        //select prefix
+    	db.mysql.query("SELECT guild_id,prefix FROM prefixs WHERE guild_id= ?", [msg.guild.id], async function (err, result) {
+			if (err) return console.log(err);
+            const prefix = JSON.parse(JSON.stringify(result[0].prefix));
+            const commands = require("./scripts/commandsReader")(prefix);
+            const unknowCommand = require("./scripts/unknowCommand");
+            if(!msg.content.startsWith(prefix)) return;
+           	const args = msg.content.slice(prefix.length).split(/ +/g);
+            const cmd = args.shift().toLowerCase();
+            const command = commands.find(({ name, aliases }) => (name === cmd || (aliases && aliases.includes(cmd)) ));
+            if(!cmd) return;
+            if(command) command.run(client,msg,args);
+     		else if(msg.content.startsWith(prefix)) unknowCommand(client,msg);
+        });
+	}
 });
 
 const tickets = {};
