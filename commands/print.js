@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const { MessageAttachment } = require('discord.js');
+const config = require("../config.json");
 
 let browser, page;
 
@@ -31,22 +32,21 @@ async function webScrapping(url) {
 };
 
 module.exports = {
-    name: 'print',
-    aliases: [ 'screenshoot' ],
-    
-    async run({ client, message, args }) {
-        let url = args.join(' ');
+    name: "print",
+    aliases: [],
+    run: async (client, msg, args) => {
+ 		let url = args.join(' ');
       
-        if(!url) return message.reply('envie um url');
+        if(!url) return msg.reply('envie um url');
         if(!url.startsWith('http')) url = 'https://' + url;
       
-        const loading = await message.reply('carregando...');
-        await webScrapping(url)
-        .then((m)=> {
+        const loading = await msg.reply('carregando...');
+        console.log(await webScrapping(url));
+        /*.then((m)=> {
             const attachment = new MessageAttachment(m);
-            message.channel.send(attachment);
+            msg.channel.send(attachment);
         })
-        .catch(()=> { return message.reply('Pagina não encontrada.') });
-        loading.delete();
+        .catch(()=> { return msg.reply('Pagina não encontrada.') });
+        loading.delete();*/
     }
 };
