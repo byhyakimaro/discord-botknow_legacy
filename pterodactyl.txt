@@ -11,3 +11,6 @@ create user 'user'@'%' identified by 'Password1';
 grant all privileges on *.* to 'user'@'%' with grant option;
 flush privileges;
 exit
+
+## Require npm
+mysql discord.js @discordjs/opus ytdl-core yt-search puppeteer
