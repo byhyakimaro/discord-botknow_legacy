@@ -25,3 +25,4 @@
 - [x] Customizar Prefixo 
 - [x] Tocar Musica
 - [ ] reCAPTCHA
+- [x] Capturas
