@@ -13,4 +13,4 @@ flush privileges;
 exit
 
 ## Require npm
-mysql discord.js @discordjs/opus ytdl-core yt-search puppeteer
+mysql discord.js node-opus ytdl-core yt-search puppeteer
