@@ -19,8 +19,9 @@ const putt = async (url) => {
             width: 1366,
             height: 768
         });
-        const res = await page.goto(url)
-        return res;
+        await page.goto(url)
+        const screenshoot = await page.screenshot();
+        return screenshoot;
     });
     return putt;
 }
@@ -34,8 +35,7 @@ module.exports = {
         if(!url.startsWith('http')) url = 'https://' + url;   
         const loading = await msg.reply('carregando...');
         putt(url)
-        .then(async()=>{
-            const screenshoot = await page.screenshot();
+        .then(async(screenshoot)=>{
             const attachment = new MessageAttachment(screenshoot);
             msg.channel.send(attachment);
         })
