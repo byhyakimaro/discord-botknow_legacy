@@ -7,6 +7,6 @@ module.exports = {
       	.replace(/<?a?:(\w+?):(\d+)?>?/g, '$1');
       const emoji = client.emojis.cache.find(emoji => emoji.name === args);
 	  const url = `https://cdn.discordapp.com/emojis/${emoji.id}.${emoji.animated ? 'gif' : 'png'}?v=1`;
-      msg.reply(url);
+      msg.channel.send(url);
     }
 };
