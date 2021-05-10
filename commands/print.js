@@ -29,6 +29,7 @@ const putt = async (url) => {
 module.exports = {
     name: "print",
     aliases: [],
+    help: "Tira Print de qualquer site.",
     run: async (client, msg, args) => {
         let url = args.join(' ');
         if(!url) return msg.reply('envie um url');
