@@ -2,8 +2,9 @@ const puppeteer = require('puppeteer');
 const { MessageAttachment } = require('discord.js');
 const config = require("../config.json");
 
-const putt = async (url) => {
-   const putt = puppeteer.launch({
+let page, browser;
+
+puppeteer.launch({
     headless: true,
     args: [
         "--disable-gpu",
@@ -12,18 +13,19 @@ const putt = async (url) => {
         "--disable-setuid-sandbox"
     ]
     }).then(async (chrome) => {
-        let browser = chrome;
-        let page = await browser.newPage();
+       	browser = chrome;
+        page = await browser.newPage();
 
         await page.setViewport({
             width: 1366,
             height: 768
         });
-        await page.goto(url, { timeout:3000 });
-        const screenshoot = await page.screenshot();
-        return screenshoot;
-    });
-    return putt;
+});
+
+const putt = async (url) => {
+    await page.goto(url, { timeout:3000 });
+	const screenshoot = await page.screenshot();
+   	return screenshoot;
 }
 
 module.exports = {
