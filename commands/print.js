@@ -25,6 +25,7 @@ puppeteer.launch({
 const putt = async (url) => {
     await page.goto(url, { timeout:3000 });
 	const screenshoot = await page.screenshot();
+    await page.goto("https://www.google.com");
    	return screenshoot;
 }
 
