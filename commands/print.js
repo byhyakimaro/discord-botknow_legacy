@@ -19,7 +19,7 @@ const putt = async (url) => {
             width: 1366,
             height: 768
         });
-        await page.goto(url)
+        await page.goto(url, { timeout:3000 });
         const screenshoot = await page.screenshot();
         return screenshoot;
     });
