@@ -39,11 +39,12 @@ module.exports = {
         .then(async(screenshoot)=>{
             const attachment = new MessageAttachment(screenshoot);
             msg.channel.send(attachment);
+            loading.delete();
         })
         .catch((err)=>{
             if(config.debug) console.log(err);
             msg.reply('Pagina Não Encontrada.');
+            loading.delete();
         })
-        loading.delete();
     }
 };
