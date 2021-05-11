@@ -41,7 +41,7 @@ module.exports = {
             msg.channel.send(attachment);
         })
         .catch((err)=>{
-            console.log(err);
+            if(config.debug) console.log(err);
             msg.reply('Pagina Não Encontrada.');
         })
         loading.delete();
