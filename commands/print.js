@@ -1,28 +1,9 @@
-const puppeteer = require('puppeteer');
 const { MessageAttachment } = require('discord.js');
 const config = require("../config.json");
 
-let page, browser;
-
-puppeteer.launch({
-    headless: true,
-    args: [
-        "--disable-gpu",
-        "--disable-dev-shm-usage",
-        "--no-sandbox",
-        "--disable-setuid-sandbox"
-    ]
-    }).then(async (chrome) => {
-       	browser = chrome;
-        page = await browser.newPage();
-
-        await page.setViewport({
-            width: 1366,
-            height: 768
-        });
-});
-
-const putt = async (url) => {
+const putt = async (client, url) => {
+    let page = await client.page;
+    if(config.debug) console.log(url);
     await page.goto(url, { timeout:3000 });
 	const screenshoot = await page.screenshot();
     await page.goto("https://www.google.com");
@@ -38,7 +19,7 @@ module.exports = {
         if(!url) return msg.reply('envie um url');
         if(!url.startsWith('http')) url = 'https://' + url;   
         const loading = await msg.reply('carregando...');
-        putt(url)
+        putt(client, url)
         .then(async(screenshoot)=>{
             const attachment = new MessageAttachment(screenshoot);
             msg.channel.send(attachment);
