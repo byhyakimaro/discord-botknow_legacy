@@ -1,9 +1,29 @@
 const Discord = require("discord.js");
+const puppeteer = require('puppeteer');
+const db = require('./scripts/db');
+
+const config = require("./config.json");
 const client = new Discord.Client();
 client.queues = new Map();
 
-const config = require("./config.json");
-const db = require('./scripts/db');
+client.page = puppeteer.launch({
+    headless: true,
+    args: [
+        "--disable-gpu",
+        "--disable-dev-shm-usage",
+        "--no-sandbox",
+        "--disable-setuid-sandbox"
+    ]
+    }).then(async (chrome) => {
+       	let browser = chrome;
+        let page = await browser.newPage();
+
+        await page.setViewport({
+            width: 1366,
+            height: 768
+        });
+    return page;
+});
 
 db.mysql.connect(function(err) {
   if (err) throw err;
@@ -15,7 +35,7 @@ db.mysql.connect(function(err) {
   });
 });
 
-client.on("ready",()=>{
+client.on("ready",async ()=>{
     console.log(`Whitelisted ${client.user.tag}`);
     client.user.setActivity(`Hacked You!`);
     client.guilds.cache.forEach((guild)=>{
@@ -44,7 +64,7 @@ client.on("message", async (msg)=>{
         if(config.debug) console.log(`${msg.author.username}: ${msg.content}`);
         //select prefix
     	db.mysql.query("SELECT guild_id,prefix FROM prefixs WHERE guild_id= ?", [msg.guild.id], async function (err, result) {
-			if (err) return console.log(err);
+			if (err) console.log(err);
             const prefix = JSON.parse(JSON.stringify(result[0].prefix));
             const commands = require("./scripts/commandsReader")(prefix);
             const unknowCommand = require("./scripts/unknowCommand");
