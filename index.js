@@ -25,36 +25,27 @@ client.page = puppeteer.launch({
     return page;
 });
 
-db.mysql.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected Database!");
-  //create database
-  var sql = "CREATE TABLE IF NOT EXISTS `prefixs` ( `guild_id` varchar(32) NOT NULL, `prefix` varchar(32) DEFAULT NULL, `data_registro` datetime DEFAULT NULL, PRIMARY KEY (`guild_id`));";
-  db.mysql.query(sql, async function (err, result) {
-    if (err) return console.log(err);
-  });
-});
-
 client.on("ready",async ()=>{
+    await db.query("CREATE TABLE IF NOT EXISTS `prefixs` ( `guild_id` varchar(32) NOT NULL, `prefix` varchar(32) DEFAULT NULL, `data_registro` datetime DEFAULT NULL, PRIMARY KEY (`guild_id`))");
     console.log(`Whitelisted ${client.user.tag}`);
     client.user.setActivity(`Hacked You!`);
-    client.guilds.cache.forEach((guild)=>{
-		var sql = "INSERT INTO `prefixs` (guild_id, prefix, data_registro) VALUES (?, ?, null) ON DUPLICATE KEY UPDATE guild_id=?";
-    	db.mysql.query(sql, [guild.id, config.prefix,guild.id], async function (err, result) { if (err) return console.log(err) });
+    client.guilds.cache.forEach(async(guild)=>{
+        let sql = "INSERT INTO `prefixs` (guild_id, prefix, data_registro) VALUES (?, ?, null) ON DUPLICATE KEY UPDATE guild_id=?";
+        await db.query(sql, [guild.id, config.prefix, guild.id]);
 	});
 });
 
 //joined a server
-client.on("guildCreate", guild => {
+client.on("guildCreate", async guild => {
     var sql = "INSERT INTO `prefixs` VALUES ( ?, ?, null);";
-    db.mysql.query(sql, [guild.id, config.prefix], async function (err, result) { if (err) return console.log(err) });
+    await db.query(sql, [guild.id, config.prefix,guild.id]);
     if(config.debug) console.log(`Joined a new guild: ${guild.name}`);
 });
 
 //removed from a server
-client.on("guildDelete", guild => {
+client.on("guildDelete", async guild => {
     var sql = "DELETE FROM `prefixs` WHERE guild_id = ?;";
-    db.mysql.query(sql, [guild.id], async function (err, result) { if (err) return console.log(err) });
+    await db.query(sql, [guild.id]);
     if(config.debug) console.log(`Left a guild: ${guild.name}`);
 })
 
@@ -63,19 +54,17 @@ client.on("message", async (msg)=>{
 	if(!msg.author.bot && msg.guild){
         if(config.debug) console.log(`${msg.author.username}: ${msg.content}`);
         //select prefix
-    	db.mysql.query("SELECT guild_id,prefix FROM prefixs WHERE guild_id= ?", [msg.guild.id], async function (err, result) {
-			if (err) console.log(err);
-            const prefix = JSON.parse(JSON.stringify(result[0].prefix));
-            const commands = require("./scripts/commandsReader")(prefix);
-            const unknowCommand = require("./scripts/unknowCommand");
-            if(!msg.content.startsWith(prefix)) return;
-           	const args = msg.content.slice(prefix.length).split(/ +/g);
-            const cmd = args.shift().toLowerCase();
-            const command = commands.find(({ name, aliases }) => (name === cmd || (aliases && aliases.includes(cmd)) ));
-            if(!cmd) return;
-            if(command) command.run(client,msg,args);
-     		else if(msg.content.startsWith(prefix)) unknowCommand(client,msg);
-        });
+        const result = await db.query("SELECT guild_id,prefix FROM prefixs WHERE guild_id= ?", [msg.guild.id]);
+        const prefix = JSON.parse(JSON.stringify(result[0].prefix));
+        const commands = require("./scripts/commandsReader")(prefix);
+        const unknowCommand = require("./scripts/unknowCommand");
+        if(!msg.content.startsWith(prefix)) return;
+        const args = msg.content.slice(prefix.length).split(/ +/g);
+        const cmd = args.shift().toLowerCase();
+        const command = commands.find(({ name, aliases }) => (name === cmd || (aliases && aliases.includes(cmd)) ));
+        if(!cmd) return;
+        if(command) command.run(client,msg,args);
+        else if(msg.content.startsWith(prefix)) unknowCommand(client,msg);
 	}
 });
 
