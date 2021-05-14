@@ -22,10 +22,8 @@ module.exports = {
         .setTimestamp();
 
         var sql = "INSERT INTO `prefixs` (guild_id, prefix, data_registro) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE prefix=? ,data_registro=?;";
-        db.mysql.query(sql,[msg.guild.id, args[1], time, args[1], time] , async function (err, result) {
-            if (err) return console.log(err);
-            if(config.debug) console.log(`prefixo ${args[1]}`);
-            msg.reply(embed);
-        });
+        await db.query(sql,[msg.guild.id, args[1], time, args[1], time]);
+        if(config.debug) console.log(`prefixo ${args[1]}`);
+        msg.reply(embed);
     }
 };
