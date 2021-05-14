@@ -1,11 +1,11 @@
 const Discord = require("discord.js");
 const db = require('../scripts/db');
+
 module.exports = {
     name: "list",
     aliases: [],
     run: async (client, msg, args) => {msg.delete();
-        db.mysql.query("SELECT guild_id,prefix FROM prefixs WHERE guild_id= ?", [msg.guild.id], async function (err, result) {
-        if (err) return console.log(err);
+        const result =  await db.query("SELECT guild_id,prefix FROM prefixs WHERE guild_id= ?", [msg.guild.id]);
         const prefix = JSON.parse(JSON.stringify(result[0].prefix));
         const commands = require("../scripts/commandsReader")(prefix);
         let emoteFix = await client.emojis.cache.get("755967379363856455");
@@ -24,6 +24,5 @@ module.exports = {
             .setFooter("Sistema de mensagem exclusivo KnowNetwork's")
             .setTimestamp();
         msg.reply(embed);
-      });
    }
 };
