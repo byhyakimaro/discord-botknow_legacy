@@ -56,6 +56,13 @@ client.on("message", async (msg)=>{
         //select prefix
         const result = await db.query("SELECT guild_id,prefix FROM prefixs WHERE guild_id= ?", [msg.guild.id]);
         const prefix = JSON.parse(JSON.stringify(result[0].prefix));
+        if (msg.content.startsWith(`<@!${client.user.id}>`) || msg.content.startsWith(`<@${client.user.id}>`)) {
+            let embedMention = new Discord.MessageEmbed()
+                .setTitle("Olá eu sou o bot da KnowNetworks.")
+                .setDescription(`Digite ${prefix}list para ver oque posso fazer!`)
+                .setColor("#0081C2")
+            msg.reply(embedMention);
+        };
         const commands = require("./scripts/commandsReader")(prefix);
         const unknowCommand = require("./scripts/unknowCommand");
         if(!msg.content.startsWith(prefix)) return;
